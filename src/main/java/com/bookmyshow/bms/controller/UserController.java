@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bookmyshow.bms.RequestDto.UserRequestDto;
 import com.bookmyshow.bms.ResponseDto.UserResponseDto;
+import com.bookmyshow.bms.model.User;
 import com.bookmyshow.bms.service.UserService;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -35,6 +39,12 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
 
+    }
+
+    @GetMapping("/findbyid/{id}")
+    public User getUserbyId(@PathVariable int id)
+    {
+        return userService.getUserbyidUser(id);
     }
 
 }

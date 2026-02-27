@@ -1,8 +1,11 @@
 package com.bookmyshow.bms.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bookmyshow.bms.Exception.UserNotFoundException;
 import com.bookmyshow.bms.RequestDto.UserRequestDto;
 import com.bookmyshow.bms.ResponseDto.UserResponseDto;
 import com.bookmyshow.bms.model.User;
@@ -12,12 +15,10 @@ import com.bookmyshow.bms.repository.UserRepository;
 public class UserService {
     @Autowired
     UserRepository userRepository;
-    
 
-    public UserResponseDto registerUser(UserRequestDto UserRequestDto)
-    {
+    public UserResponseDto registerUser(UserRequestDto UserRequestDto) {
         User user = new User();
-        //convert to in user
+        // convert to in user
         user.setUsername(UserRequestDto.getUsername());
         user.setPassword(UserRequestDto.getPassword());
         user.setEmail(UserRequestDto.getEmail());
@@ -26,11 +27,10 @@ public class UserService {
         user.setCity(UserRequestDto.getCity());
         user.setPincode(UserRequestDto.getPincode());
         user.setUserType(UserRequestDto.getUserType());
-        
 
-        //saved user
+        // saved user
         User savedUser = userRepository.save(user);
-        //convert dto in response
+        // convert dto in response
 
         UserResponseDto userResponseDto = new UserResponseDto();
 
@@ -42,12 +42,19 @@ public class UserService {
         userResponseDto.setCity(savedUser.getCity());
         userResponseDto.setPincode(savedUser.getPincode());
         userResponseDto.setUserType(savedUser.getUserType());
-        
-
 
         return userResponseDto;
 
     }
 
-  
+    public User getUserbyidUser(int id)
+    {
+            Optional<User> u = userRepository.findById(id);
+            if(u.isEmpty()){
+                throw new UserNotFoundException("The user Not found");
+            }
+
+            return u.get();
+    }
+
 }
