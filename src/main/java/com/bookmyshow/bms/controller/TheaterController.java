@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/Theater/api")
@@ -32,5 +35,19 @@ public class TheaterController {
 
         }
     }
+
+    @GetMapping("/list/ownerwise/{id}")
+    public ResponseEntity<?> getByOwnerId(@PathVariable int id)
+    {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(theaterService.getTheaterByOwnerId(id));
+        } catch (Exception e) {
+            Map<String , String> response = new HashMap<>();
+            response.put("message is " , e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+
+        }
+    }
+    
 
 }

@@ -1,5 +1,6 @@
 package com.bookmyshow.bms.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +23,16 @@ public class TheaterService {
     @Autowired
     UserRepository userRepository;
 
-   
-    
-
-    public Theater registerTheater( TheaterRequestDto request)
-    {
+    public Theater registerTheater(TheaterRequestDto request) {
         Optional<User> owneroptional = userRepository.findById(request.getOwnerid());
-        if(owneroptional.isPresent()){
+        if (owneroptional.isPresent()) {
             User owner = owneroptional.get();
-            if(owner.getUserType() != UserType.THEATER_OWNER){
+            if (owner.getUserType() != UserType.THEATER_OWNER) {
                 throw new UserIsNotOwnerException("The current user is not owner and cannot own theater");
             }
-        }else{
+        } else {
             throw new UserNotFoundException("The user Does not Exist");
         }
-
 
         Theater th = new Theater();
         th.setTheaterName(request.getTheaterName());
@@ -45,7 +41,23 @@ public class TheaterService {
         th.setPincode(request.getPincode());
         th.setOwner(owneroptional.get());
 
-       return theaterRepository.save(th);
+        return theaterRepository.save(th);
+
+    }
+
+    public List<Theater> getTheaterByOwnerId(int id) {
+        Optional<User> owneroptional = userRepository.findById(id);
+        if (owneroptional.isPresent()) {
+            User owner = owneroptional.get();
+            if (owner.getUserType() != UserType.THEATER_OWNER) {
+                throw new UserIsNotOwnerException("The current user is not owner and cannot own theater");
+            }
+        } else {
+            throw new UserNotFoundException("The user Does not Exist");
+        }
+
+
+        return theaterRepository.findByOwner(owneroptional.get());
 
     }
 }
