@@ -18,6 +18,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,12 +35,14 @@ public class Theater {
     private String state;
     private int pincode;
 
-    @JsonBackReference
+    @JsonBackReference(value = "user-theater")
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "owner_id" , nullable =  false)
     private User owner;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "theater-hall")
+    @ToString.Exclude
     @OneToMany(mappedBy = "theater")
     private List<Hall> halls;
 

@@ -23,14 +23,16 @@ import lombok.NoArgsConstructor;
 @Table(name = "hall")
 public class Hall {
     @Id
-    @GeneratedValue (strategy =  GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(unique = true)
     private String hallname;
     private int hallcapacity;
+    private int Hallrows;
+    private int seatsInEachRow;
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "theater_id" , nullable = false)
+    @JoinColumn(name = "theater_id", nullable = false)
     private Theater theater;
 }

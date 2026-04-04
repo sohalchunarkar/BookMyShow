@@ -30,25 +30,36 @@ public class TheaterController {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(theaterService.registerTheater(request));
         } catch (Exception e) {
-            Map<String , String> response = new HashMap<>();
-            response.put("message is " , e.getMessage());
+            Map<String, String> response = new HashMap<>();
+            response.put("message is ", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 
         }
     }
 
     @GetMapping("/list/ownerwise/{id}")
-    public ResponseEntity<?> getByOwnerId(@PathVariable UUID id)
-    {
+    public ResponseEntity<?> getListOFTheaterOwnedByOwner(@PathVariable UUID id) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(theaterService.getTheaterByOwnerId(id));
+            return ResponseEntity.status(HttpStatus.OK).body(theaterService.getListOfTheaterOwnedByOwner(id));
         } catch (Exception e) {
-            Map<String , String> response = new HashMap<>();
-            response.put("message is " , e.getMessage());
+            Map<String, String> response = new HashMap<>();
+            response.put("message is ", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 
         }
     }
-    
+
+    @GetMapping("/theater/byid/{id}")
+    public ResponseEntity<?> getTheaterById(@PathVariable UUID id) {
+
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(theaterService.getTheaterByTheaterId(id));
+        } catch (Exception e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message is ", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+
+        }
+    }
 
 }

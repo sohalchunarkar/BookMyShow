@@ -1,5 +1,7 @@
 package com.bookmyshow.bms.service;
 
+
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,10 +21,13 @@ import com.bookmyshow.bms.repository.UserRepository;
 
 @Service
 public class TheaterService {
+    
     @Autowired
     TheaterRepository theaterRepository;
     @Autowired
     UserRepository userRepository;
+
+
 
     public Theater registerTheater(TheaterRequestDto request) {
         Optional<User> owneroptional = userRepository.findById(request.getOwnerid());
@@ -46,7 +51,7 @@ public class TheaterService {
 
     }
 
-    public List<Theater> getTheaterByOwnerId(UUID id) {
+    public List<Theater> getListOfTheaterOwnedByOwner(UUID id) {
         Optional<User> owneroptional = userRepository.findById(id);
         if (owneroptional.isPresent()) {
             User owner = owneroptional.get();
@@ -56,9 +61,18 @@ public class TheaterService {
         } else {
             throw new UserNotFoundException("The user Does not Exist");
         }
-
-
         return theaterRepository.findByOwner(owneroptional.get());
-
     }
+
+   public Theater getTheaterByTheaterId(UUID id)
+   {
+      Optional<Theater> th = theaterRepository.findById(id);
+      if(th.isEmpty())
+      {
+        throw new UserNotFoundException("The Theater with id does not extist");
+      }
+
+      return th.get();
+   }
+    
 }
