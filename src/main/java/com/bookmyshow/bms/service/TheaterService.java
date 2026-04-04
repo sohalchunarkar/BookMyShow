@@ -2,6 +2,7 @@ package com.bookmyshow.bms.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class TheaterService {
 
     }
 
-    public List<Theater> getTheaterByOwnerId(int id) {
+    public List<Theater> getTheaterByOwnerId(UUID id) {
         Optional<User> owneroptional = userRepository.findById(id);
         if (owneroptional.isPresent()) {
             User owner = owneroptional.get();

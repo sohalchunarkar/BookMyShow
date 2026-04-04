@@ -1,6 +1,7 @@
 package com.bookmyshow.bms.model;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -26,7 +27,7 @@ public class Theater {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
     @Column(unique = true , nullable = false)
     private String theaterName;
     private String city;

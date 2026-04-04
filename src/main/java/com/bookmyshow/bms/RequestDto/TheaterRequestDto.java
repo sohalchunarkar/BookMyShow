@@ -1,5 +1,7 @@
 package com.bookmyshow.bms.RequestDto;
 
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +15,5 @@ public class TheaterRequestDto {
     private String city;
     private String state;
     private int pincode;
-    private int ownerid;
+    private UUID ownerid;
 }

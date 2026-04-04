@@ -1,6 +1,7 @@
 package com.bookmyshow.bms.service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,7 @@ public class UserService {
 
     }
 
-    public User getUserbyidUser(int id)
+    public User getUserbyidUser(UUID id)
     {
             Optional<User> u = userRepository.findById(id);
             if(u.isEmpty()){

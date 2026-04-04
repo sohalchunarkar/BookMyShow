@@ -1,5 +1,7 @@
 package com.bookmyshow.bms.ResponseDto;
 
+import java.util.UUID;
+
 import com.bookmyshow.bms.Enums.UserType;
 
 
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserResponseDto {
     
-    private int id;
+    private UUID id;
     private String username;
     private String email;
     private Long phoneNumber;

@@ -1,6 +1,7 @@
 package com.bookmyshow.bms.model;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.bookmyshow.bms.Enums.UserType;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -27,7 +28,7 @@ public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
     private String username;
     private String password;
     @Column(unique = true, nullable = false)

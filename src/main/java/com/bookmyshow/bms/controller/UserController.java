@@ -2,6 +2,7 @@ package com.bookmyshow.bms.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/findbyid/{id}")
-    public User getUserbyId(@PathVariable int id)
+    public User getUserbyId(@PathVariable UUID id)
     {
         return userService.getUserbyidUser(id);
     }

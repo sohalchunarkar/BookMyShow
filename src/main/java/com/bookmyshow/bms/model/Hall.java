@@ -1,5 +1,7 @@
 package com.bookmyshow.bms.model;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -22,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class Hall {
     @Id
     @GeneratedValue (strategy =  GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
     @Column(unique = true)
     private String hallname;
     private int hallcapacity;
