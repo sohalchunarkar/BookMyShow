@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 public class Theater {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.UUID)
     private UUID id;
     @Column(unique = true , nullable = false)
     private String theaterName;

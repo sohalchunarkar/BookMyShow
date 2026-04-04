@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "hall")
 public class Hall {
     @Id
-    @GeneratedValue (strategy =  GenerationType.IDENTITY)
+    @GeneratedValue (strategy =  GenerationType.UUID)
     private UUID id;
     @Column(unique = true)
     private String hallname;
