@@ -3,7 +3,7 @@ package com.bookmyshow.bms.model;
 import java.util.List;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -35,7 +35,7 @@ public class Theater {
     private String state;
     private int pincode;
 
-    @JsonBackReference(value = "user-theater")
+    @JsonIgnoreProperties("theaters")
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "owner_id" , nullable =  false)

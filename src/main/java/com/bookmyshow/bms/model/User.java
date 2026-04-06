@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.bookmyshow.bms.Enums.UserType;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,7 +41,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
 
-    @JsonManagedReference
+    @JsonIgnoreProperties("owner")
     @OneToMany(mappedBy = "owner")
     private List<Theater> theaters;
 }
