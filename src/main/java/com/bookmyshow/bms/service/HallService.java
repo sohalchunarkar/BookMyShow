@@ -1,5 +1,7 @@
 package com.bookmyshow.bms.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.bookmyshow.bms.Exception.UserIsNotOwnerException;
 import com.bookmyshow.bms.RequestDto.HallRequestDto;
 import com.bookmyshow.bms.model.Hall;
+import com.bookmyshow.bms.model.Seat;
 import com.bookmyshow.bms.model.Theater;
 import com.bookmyshow.bms.repository.HallRepository;
 import com.bookmyshow.bms.repository.TheaterRepository;
@@ -42,6 +45,20 @@ public class HallService {
         hall.setHallrows(hallRequestDto.getHallrows());
         hall.setSeatsInEachRow(hallRequestDto.getSeatsInEachRow());
         hall.setTheater(theateroptional.get());
+
+        List<Seat> seats = new ArrayList<>();
+        for (int i = 0; i < hallRequestDto.getHallrows(); i++) {
+            char rowName = (char) ('A' + i);
+            for (int j = 1; j <= hallRequestDto.getSeatsInEachRow(); j++) {
+                Seat seat = new Seat();
+                seat.setSeatNo(rowName + "-" + j);
+                seat.setRowNo(rowName);
+                seat.setColNo(j);
+                seat.setHall(hall);
+                seats.add(seat);
+            }
+        }
+        hall.setSeats(seats);
 
         return hallRepository.save(hall);
     }
