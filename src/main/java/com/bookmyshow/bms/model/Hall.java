@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -44,4 +45,8 @@ public class Hall {
     @JsonManagedReference
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
     private List<Seat> seats;
+
+    @JsonIgnoreProperties("hall")
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
+    private List<Show> shows;
 }

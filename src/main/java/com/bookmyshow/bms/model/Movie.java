@@ -1,6 +1,9 @@
 package com.bookmyshow.bms.model;
 
+import java.util.List;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import com.bookmyshow.bms.Enums.MoiveGener;
 
@@ -11,6 +14,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,4 +38,7 @@ public class Movie {
     private UUID idofAdminWhoAddedThisMove;
     private Integer MovieDuration;
 
+    @JsonIgnoreProperties("movie")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<Show> shows;
 }
