@@ -19,13 +19,13 @@ import com.bookmyshow.bms.model.Show;
 import com.bookmyshow.bms.service.ShowService;
 
 @RestController
-@RequestMapping("/show")
+@RequestMapping("/shows")
 public class ShowController {
 
     @Autowired
     ShowService showService;
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<?> addShow(@RequestBody ShowRequestDto request) {
         try {
             Show show = showService.addShow(request);
@@ -35,13 +35,13 @@ public class ShowController {
         }
     }
 
-    @GetMapping("/movie/{movieId}")
+    @GetMapping("/movies/{movieId}")
     public ResponseEntity<List<Show>> getShowsByMovie(@PathVariable UUID movieId) {
         List<Show> shows = showService.getShowsByMovieId(movieId);
         return new ResponseEntity<>(shows, HttpStatus.OK);
     }
 
-    @GetMapping("/theater/{theaterId}")
+    @GetMapping("/theaters/{theaterId}")
     public ResponseEntity<List<Show>> getShowsByTheater(@PathVariable UUID theaterId) {
         List<Show> shows = showService.getShowsByTheaterId(theaterId);
         return new ResponseEntity<>(shows, HttpStatus.OK);

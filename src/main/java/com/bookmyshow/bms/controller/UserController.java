@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/User/api")
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/SaveUser")
+    @PostMapping
     public ResponseEntity<?> saveUser(@RequestBody UserRequestDto userRequestDto) {
 
         try {
@@ -42,7 +42,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/findbyid/{id}")
+    @GetMapping("/{id}")
     public User getUserbyId(@PathVariable UUID id)
     {
         return userService.getUserbyidUser(id);

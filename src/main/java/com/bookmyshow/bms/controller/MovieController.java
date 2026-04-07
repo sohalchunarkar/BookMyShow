@@ -22,12 +22,12 @@ import com.bookmyshow.bms.model.Movie;
 import com.bookmyshow.bms.service.MovieService;
 
 @RestController
-@RequestMapping("/movie/api")
+@RequestMapping("/movies")
 public class MovieController {
     @Autowired
     MovieService movieService;
 
-    @PostMapping("/saveMovie/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<?> saveMovie(@RequestBody MovieRequestDto movieRequestDto) {
         try {
             Movie movie = movieService.registerMoive(movieRequestDto);
@@ -40,7 +40,7 @@ public class MovieController {
         }
     }
 
-    @DeleteMapping("/deleteMovie/{movieId}/{userId}")
+    @DeleteMapping("/{movieId}/admin/{userId}")
     public ResponseEntity<?> deleteMovie(@PathVariable UUID movieId, @PathVariable UUID userId) {
         try {
             String responseStr = movieService.deleteMovie(movieId, userId);
@@ -54,7 +54,7 @@ public class MovieController {
         }
     }
 
-    @GetMapping("/getAllMovies")
+    @GetMapping
     public ResponseEntity<List<Movie>> getAllMovies() {
         return ResponseEntity.status(HttpStatus.OK).body(movieService.getAllMovies());
     }

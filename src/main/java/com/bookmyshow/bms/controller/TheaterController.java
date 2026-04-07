@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/Theater/api")
+@RequestMapping("/theaters")
 public class TheaterController {
     @Autowired
     TheaterService theaterService;
 
-    @PostMapping("/registertheater")
+    @PostMapping
     public ResponseEntity<?> saveTheater(@RequestBody TheaterRequestDto request) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(theaterService.registerTheater(request));
@@ -36,7 +36,7 @@ public class TheaterController {
         }
     }
 
-    @GetMapping("/list/ownerwise/{id}")
+    @GetMapping("/owners/{id}")
     public ResponseEntity<?> getListOFTheaterOwnedByOwner(@PathVariable UUID id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(theaterService.getListOfTheaterOwnedByOwner(id));
@@ -48,7 +48,7 @@ public class TheaterController {
         }
     }
 
-    @GetMapping("/theater/byid/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getTheaterById(@PathVariable UUID id) {
 
         try {
@@ -61,7 +61,7 @@ public class TheaterController {
         }
     }
 
-    @GetMapping("/getAll")
+    @GetMapping
     public ResponseEntity<?> getAllTheaters() {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(theaterService.getAllTheaters());

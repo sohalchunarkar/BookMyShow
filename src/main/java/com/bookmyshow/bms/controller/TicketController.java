@@ -18,13 +18,13 @@ import com.bookmyshow.bms.model.Ticket;
 import com.bookmyshow.bms.service.TicketService;
 
 @RestController
-@RequestMapping("/ticket")
+@RequestMapping("/tickets")
 public class TicketController {
 
     @Autowired
     TicketService ticketService;
 
-    @PostMapping("/book")
+    @PostMapping
     public ResponseEntity<?> bookTicket(@RequestBody TicketRequestDto request) {
         try {
             Ticket ticket = ticketService.bookTicket(request);
@@ -34,7 +34,7 @@ public class TicketController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/users/{userId}")
     public ResponseEntity<List<Ticket>> getTicketsByUser(@PathVariable UUID userId) {
         return new ResponseEntity<>(ticketService.getTicketsByUserId(userId), HttpStatus.OK);
     }

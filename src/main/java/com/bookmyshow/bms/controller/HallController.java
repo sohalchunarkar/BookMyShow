@@ -16,12 +16,12 @@ import com.bookmyshow.bms.model.Hall;
 import com.bookmyshow.bms.service.HallService;
 
 @RestController
-@RequestMapping("/hall/api")
+@RequestMapping("/halls")
 public class HallController {
     @Autowired
     HallService hallService;
 
-    @PostMapping("/SaveHall")
+    @PostMapping
     public ResponseEntity<?>  saveHall(@RequestBody HallRequestDto hallRequestDto)
     {
         try{
