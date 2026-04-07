@@ -1,0 +1,163 @@
+{
+	"info": {
+		"name": "BookMyShow Backend APIs",
+		"description": "Complete collection of refactored REST endpoints for the BMS backend.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Users",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n    \"name\": \"Sohal\",\n    \"mobNo\": \"9999999999\",\n    \"emailId\": \"test@test.com\",\n    \"age\": 25,\n    \"userType\": \"THEATER_OWNER\"\n}" },
+						"url": { "raw": "http://localhost:8080/users", "host": [ "localhost" ], "port": "8080", "path": [ "users" ] }
+					}
+				},
+				{
+					"name": "Get User By ID",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "http://localhost:8080/users/UUID-GOES-HERE", "host": [ "localhost" ], "port": "8080", "path": [ "users", "UUID-GOES-HERE" ] }
+					}
+				}
+			]
+		},
+		{
+			"name": "2. Theaters",
+			"item": [
+				{
+					"name": "Register Theater",
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n    \"theaterName\": \"PVR Cinemas\",\n    \"city\": \"Mumbai\",\n    \"state\": \"MH\",\n    \"pincode\": 400001,\n    \"ownerid\": \"OWNER-UUID-HERE\"\n}" },
+						"url": { "raw": "http://localhost:8080/theaters", "host": [ "localhost" ], "port": "8080", "path": [ "theaters" ] }
+					}
+				},
+				{
+					"name": "Get All Theaters",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "http://localhost:8080/theaters", "host": [ "localhost" ], "port": "8080", "path": [ "theaters" ] }
+					}
+				},
+				{
+					"name": "Get Theater By ID",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "http://localhost:8080/theaters/THEATER-UUID-HERE", "host": [ "localhost" ], "port": "8080", "path": [ "theaters", "THEATER-UUID-HERE" ] }
+					}
+				},
+				{
+					"name": "Get Theaters By Owner ID",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "http://localhost:8080/theaters/owners/OWNER-UUID-HERE", "host": [ "localhost" ], "port": "8080", "path": [ "theaters", "owners", "OWNER-UUID-HERE" ] }
+					}
+				}
+			]
+		},
+		{
+			"name": "3. Halls",
+			"item": [
+				{
+					"name": "Register Hall",
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n    \"hallName\": \"Screen 1\",\n    \"noOfRow\": 10,\n    \"noOfColumns\": 15,\n    \"theaterId\": \"THEATER-UUID-HERE\",\n    \"baseSeatPrice\": 100\n}" },
+						"url": { "raw": "http://localhost:8080/halls", "host": [ "localhost" ], "port": "8080", "path": [ "halls" ] }
+					}
+				}
+			]
+		},
+		{
+			"name": "4. Movies",
+			"item": [
+				{
+					"name": "Register Movie",
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n    \"movieName\": \"Interstellar\",\n    \"movieDuration\": 169,\n    \"genre\": \"SCI_FI\",\n    \"language\": \"ENGLISH\",\n    \"releaseDate\": \"2014-11-07\"\n}" },
+						"url": { "raw": "http://localhost:8080/movies/ADMIN-UUID-HERE", "host": [ "localhost" ], "port": "8080", "path": [ "movies", "ADMIN-UUID-HERE" ] }
+					}
+				},
+				{
+					"name": "Get All Movies",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "http://localhost:8080/movies", "host": [ "localhost" ], "port": "8080", "path": [ "movies" ] }
+					}
+				},
+				{
+					"name": "Delete Movie",
+					"request": {
+						"method": "DELETE",
+						"url": { "raw": "http://localhost:8080/movies/MOVIE-UUID-HERE/admin/ADMIN-UUID-HERE", "host": [ "localhost" ], "port": "8080", "path": [ "movies", "MOVIE-UUID-HERE", "admin", "ADMIN-UUID-HERE" ] }
+					}
+				}
+			]
+		},
+		{
+			"name": "5. Shows",
+			"item": [
+				{
+					"name": "Register Show",
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n    \"showDate\": \"2026-05-15\",\n    \"startTime\": \"18:00:00\",\n    \"basePrice\": 150,\n    \"movieId\": \"MOVIE-UUID-HERE\",\n    \"hallId\": \"HALL-UUID-HERE\",\n    \"ownerId\": \"OWNER-UUID-HERE\"\n}" },
+						"url": { "raw": "http://localhost:8080/shows", "host": [ "localhost" ], "port": "8080", "path": [ "shows" ] }
+					}
+				},
+				{
+					"name": "Get Shows by Movie",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "http://localhost:8080/shows/movies/MOVIE-UUID-HERE", "host": [ "localhost" ], "port": "8080", "path": [ "shows", "movies", "MOVIE-UUID-HERE" ] }
+					}
+				},
+				{
+					"name": "Get Shows by Theater",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "http://localhost:8080/shows/theaters/THEATER-UUID-HERE", "host": [ "localhost" ], "port": "8080", "path": [ "shows", "theaters", "THEATER-UUID-HERE" ] }
+					}
+				},
+				{
+					"name": "Get Available Seats Map",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "http://localhost:8080/shows/SHOW-UUID-HERE/seats", "host": [ "localhost" ], "port": "8080", "path": [ "shows", "SHOW-UUID-HERE", "seats" ] }
+					}
+				}
+			]
+		},
+		{
+			"name": "6. Tickets/Booking",
+			"item": [
+				{
+					"name": "Book a Ticket",
+					"request": {
+						"method": "POST",
+						"header": [ { "key": "Content-Type", "value": "application/json" } ],
+						"body": { "mode": "raw", "raw": "{\n    \"userId\": \"USER-UUID-HERE\",\n    \"showId\": \"SHOW-UUID-HERE\",\n    \"seatIds\": [\n      \"SEAT-UUID-1-HERE\",\n      \"SEAT-UUID-2-HERE\"\n    ]\n}" },
+						"url": { "raw": "http://localhost:8080/tickets", "host": [ "localhost" ], "port": "8080", "path": [ "tickets" ] }
+					}
+				},
+				{
+					"name": "Get 'My Tickets'",
+					"request": {
+						"method": "GET",
+						"url": { "raw": "http://localhost:8080/tickets/users/USER-UUID-HERE", "host": [ "localhost" ], "port": "8080", "path": [ "tickets", "users", "USER-UUID-HERE" ] }
+					}
+				}
+			]
+		}
+	]
+}
