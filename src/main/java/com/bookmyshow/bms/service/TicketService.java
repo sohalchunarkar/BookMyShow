@@ -82,4 +82,8 @@ public class TicketService {
 
         return ticketRepository.save(ticket);
     }
+
+    public List<Ticket> getTicketsByUserId(UUID userId) {
+        return ticketRepository.findByUser_Id(userId);
+    }
 }

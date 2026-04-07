@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 @RestController
 @RequestMapping("/Theater/api")
 public class TheaterController {
@@ -59,6 +58,17 @@ public class TheaterController {
             response.put("message is ", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 
+        }
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllTheaters() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(theaterService.getAllTheaters());
+        } catch (Exception e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message is ", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 

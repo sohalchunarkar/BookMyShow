@@ -1,5 +1,6 @@
 package com.bookmyshow.bms.service;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
@@ -100,11 +101,11 @@ public class ShowService {
     }
 
     public List<Show> getShowsByMovieId(UUID movieId) {
-        return showRepository.findByMovie_Id(movieId);
+        return showRepository.findByMovie_IdAndShowDateGreaterThanEqual(movieId, LocalDate.now());
     }
 
     public List<Show> getShowsByTheaterId(UUID theaterId) {
-        return showRepository.findByHall_Theater_Id(theaterId);
+        return showRepository.findByHall_Theater_IdAndShowDateGreaterThanEqual(theaterId, LocalDate.now());
     }
 
     public List<SeatResponseDto> getShowSeats(UUID showId) {

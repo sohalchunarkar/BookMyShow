@@ -11,4 +11,5 @@ import java.util.UUID;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, UUID> {
     List<Ticket> findByShow(Show show);
+    List<Ticket> findByUser_Id(UUID userId);
 }

@@ -74,5 +74,9 @@ public class TheaterService {
 
       return th.get();
    }
+
+   public List<Theater> getAllTheaters() {
+       return theaterRepository.findAll();
+   }
     
 }

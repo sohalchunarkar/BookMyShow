@@ -13,9 +13,9 @@ import java.util.UUID;
 public interface ShowRepository extends JpaRepository<Show, UUID> {
     List<Show> findByHallAndShowDate(Hall hall, LocalDate showDate);
     
-    // Auto-fetch shows by Movie ID
-    List<Show> findByMovie_Id(UUID movieId);
+    // Auto-fetch shows by Movie ID (Future dates only)
+    List<Show> findByMovie_IdAndShowDateGreaterThanEqual(UUID movieId, LocalDate currentDate);
     
-    // Auto-fetch shows navigating through Hall to the Theater ID
-    List<Show> findByHall_Theater_Id(UUID theaterId);
+    // Auto-fetch shows navigating through Hall to the Theater ID (Future dates only)
+    List<Show> findByHall_Theater_IdAndShowDateGreaterThanEqual(UUID theaterId, LocalDate currentDate);
 }
