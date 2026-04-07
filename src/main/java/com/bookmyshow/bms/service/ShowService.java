@@ -3,6 +3,9 @@ package com.bookmyshow.bms.service;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +15,17 @@ import com.bookmyshow.bms.Exception.ShowTimingOverlapException;
 import com.bookmyshow.bms.Exception.UserIsNotOwnerException;
 import com.bookmyshow.bms.Exception.UserNotFoundException;
 import com.bookmyshow.bms.RequestDto.ShowRequestDto;
+import com.bookmyshow.bms.ResponseDto.SeatResponseDto;
 import com.bookmyshow.bms.model.Hall;
 import com.bookmyshow.bms.model.Movie;
+import com.bookmyshow.bms.model.Seat;
 import com.bookmyshow.bms.model.Show;
+import com.bookmyshow.bms.model.Ticket;
 import com.bookmyshow.bms.model.User;
 import com.bookmyshow.bms.repository.HallRepository;
 import com.bookmyshow.bms.repository.MovieRepository;
 import com.bookmyshow.bms.repository.ShowRepository;
+import com.bookmyshow.bms.repository.TicketRepository;
 import com.bookmyshow.bms.repository.UserRepository;
 
 @Service
@@ -35,6 +42,9 @@ public class ShowService {
     
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    TicketRepository ticketRepository;
 
     public Show addShow(ShowRequestDto request) {
         
@@ -95,5 +105,30 @@ public class ShowService {
 
     public List<Show> getShowsByTheaterId(UUID theaterId) {
         return showRepository.findByHall_Theater_Id(theaterId);
+    }
+
+    public List<SeatResponseDto> getShowSeats(UUID showId) {
+        Show show = showRepository.findById(showId)
+                .orElseThrow(() -> new RuntimeException("Show not found"));
+
+        List<Seat> allSeatsInHall = show.getHall().getSeats();
+        List<Ticket> existingTickets = ticketRepository.findByShow(show);
+
+        // Compile a master list of exactly which Seat IDs are already purchased
+        Set<UUID> bookedSeatIds = new HashSet<>();
+        for (Ticket ticket : existingTickets) {
+            for (Seat seat : ticket.getSeats()) {
+                bookedSeatIds.add(seat.getId());
+            }
+        }
+
+        // Loop through all physical seats and construct UI responses matching their real-time state
+        List<SeatResponseDto> response = new ArrayList<>();
+        for (Seat seat : allSeatsInHall) {
+            boolean isBooked = bookedSeatIds.contains(seat.getId());
+            response.add(new SeatResponseDto(seat.getId(), seat.getSeatNo(), seat.getPrice(), isBooked));
+        }
+
+        return response;
     }
 }

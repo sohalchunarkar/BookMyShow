@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.bookmyshow.bms.RequestDto.ShowRequestDto;
+import com.bookmyshow.bms.ResponseDto.SeatResponseDto;
 import com.bookmyshow.bms.model.Show;
 import com.bookmyshow.bms.service.ShowService;
 
@@ -44,5 +45,15 @@ public class ShowController {
     public ResponseEntity<List<Show>> getShowsByTheater(@PathVariable UUID theaterId) {
         List<Show> shows = showService.getShowsByTheaterId(theaterId);
         return new ResponseEntity<>(shows, HttpStatus.OK);
+    }
+
+    @GetMapping("/{showId}/seats")
+    public ResponseEntity<?> getShowSeats(@PathVariable UUID showId) {
+        try {
+            List<SeatResponseDto> seats = showService.getShowSeats(showId);
+            return new ResponseEntity<>(seats, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }
