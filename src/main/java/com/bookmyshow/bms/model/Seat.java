@@ -29,6 +29,8 @@ public class Seat {
     private char rowNo;
     private int colNo;
 
+    private int price;
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "hall_id", nullable = false)

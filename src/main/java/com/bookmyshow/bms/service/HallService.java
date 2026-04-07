@@ -47,13 +47,29 @@ public class HallService {
         hall.setTheater(theateroptional.get());
 
         List<Seat> seats = new ArrayList<>();
+        
+        // Dynamic row-wise price mapping based on absolute base provided
+        int part = hallRequestDto.getHallrows() / 3;
+        
         for (int i = 0; i < hallRequestDto.getHallrows(); i++) {
             char rowName = (char) ('A' + i);
+            
+            // Tier 1 (Front), Tier 2 (Middle), Tier 3 (Back)
+            int currentPrice;
+            if (i < part) {
+                currentPrice = hallRequestDto.getBaseSeatPrice();
+            } else if (i < 2 * part) {
+                currentPrice = hallRequestDto.getBaseSeatPrice() + 20;
+            } else {
+                currentPrice = hallRequestDto.getBaseSeatPrice() + 40;
+            }
+            
             for (int j = 1; j <= hallRequestDto.getSeatsInEachRow(); j++) {
                 Seat seat = new Seat();
                 seat.setSeatNo(rowName + "-" + j);
                 seat.setRowNo(rowName);
                 seat.setColNo(j);
+                seat.setPrice(currentPrice);
                 seat.setHall(hall);
                 seats.add(seat);
             }

@@ -15,5 +15,6 @@ public class HallRequestDto {
     private int Hallrows;
     private int seatsInEachRow;
     private UUID TheaterId;
+    private int baseSeatPrice;
 
 }
