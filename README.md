@@ -14,9 +14,9 @@ An enterprise-grade, highly concurrent Java backend engine mimicking the core ar
 
 ### 1. Mathematically Distributed Seat Pricing 💺
 Instead of calculating seat prices locally at checkout, the backend automatically calculates and strictly embeds tiered prices directly into the physical seat columns the exact moment a `Hall` is registered! The native algorithm flawlessly segments the massive grid into 3 unique positional tiers.
-* **Front Section**: Base Price 
-* **Middle Section**: Base + 20 
-* **Back Section**: Base + 40
+* **Front Section**: Base Price + 50 
+* **Middle Section**: Base + 100
+* **Back Section**: Base + 150
 
 ### 2. Time-Collision Defense Matrix ⏰
 Theater Owners cannot accidentally overlap movies. The `ShowService` engine possesses strict mathematical date-time validations. It auto-calculates the projected end-time based on the Movie's inherent duration, and rigidly cross-references it deeply with every single existing `Show` registered in that exact `Hall` to strictly block Time Collisions!
