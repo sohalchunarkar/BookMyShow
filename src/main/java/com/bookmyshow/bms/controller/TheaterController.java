@@ -24,7 +24,7 @@ public class TheaterController {
     @Autowired
     TheaterService theaterService;
 
-    @PostMapping
+    @PostMapping("/registertheater")
     public ResponseEntity<?> saveTheater(@RequestBody TheaterRequestDto request) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(theaterService.registerTheater(request));
@@ -36,7 +36,7 @@ public class TheaterController {
         }
     }
 
-    @GetMapping("/owners/{id}")
+    @GetMapping("/getTheatersByOwnerId/{id}")
     public ResponseEntity<?> getListOFTheaterOwnedByOwner(@PathVariable UUID id) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(theaterService.getListOfTheaterOwnedByOwner(id));
@@ -48,7 +48,7 @@ public class TheaterController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getTheaterById/{id}")
     public ResponseEntity<?> getTheaterById(@PathVariable UUID id) {
 
         try {
@@ -61,7 +61,7 @@ public class TheaterController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/getAllTheaters")
     public ResponseEntity<?> getAllTheaters() {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(theaterService.getAllTheaters());

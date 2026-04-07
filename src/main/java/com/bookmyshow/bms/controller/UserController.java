@@ -26,7 +26,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping
+    @PostMapping("/saveUser")
     public ResponseEntity<?> saveUser(@RequestBody UserRequestDto userRequestDto) {
 
         try {
@@ -42,7 +42,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getUserById/{id}")
     public User getUserbyId(@PathVariable UUID id)
     {
         return userService.getUserbyidUser(id);

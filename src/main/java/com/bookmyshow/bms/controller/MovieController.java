@@ -27,7 +27,7 @@ public class MovieController {
     @Autowired
     MovieService movieService;
 
-    @PostMapping("/{id}")
+    @PostMapping("/saveMovie/{id}")
     public ResponseEntity<?> saveMovie(@RequestBody MovieRequestDto movieRequestDto) {
         try {
             Movie movie = movieService.registerMoive(movieRequestDto);
@@ -40,7 +40,7 @@ public class MovieController {
         }
     }
 
-    @DeleteMapping("/{movieId}/admin/{userId}")
+    @DeleteMapping("/deleteMovie/{movieId}/{userId}")
     public ResponseEntity<?> deleteMovie(@PathVariable UUID movieId, @PathVariable UUID userId) {
         try {
             String responseStr = movieService.deleteMovie(movieId, userId);
@@ -54,7 +54,7 @@ public class MovieController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/getAllMovies")
     public ResponseEntity<List<Movie>> getAllMovies() {
         return ResponseEntity.status(HttpStatus.OK).body(movieService.getAllMovies());
     }

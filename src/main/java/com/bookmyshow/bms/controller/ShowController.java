@@ -25,7 +25,7 @@ public class ShowController {
     @Autowired
     ShowService showService;
 
-    @PostMapping
+    @PostMapping("/saveShow")
     public ResponseEntity<?> addShow(@RequestBody ShowRequestDto request) {
         try {
             Show show = showService.addShow(request);
@@ -35,19 +35,19 @@ public class ShowController {
         }
     }
 
-    @GetMapping("/movies/{movieId}")
+    @GetMapping("/getShowsByMovie/{movieId}")
     public ResponseEntity<List<Show>> getShowsByMovie(@PathVariable UUID movieId) {
         List<Show> shows = showService.getShowsByMovieId(movieId);
         return new ResponseEntity<>(shows, HttpStatus.OK);
     }
 
-    @GetMapping("/theaters/{theaterId}")
+    @GetMapping("/getShowsByTheater/{theaterId}")
     public ResponseEntity<List<Show>> getShowsByTheater(@PathVariable UUID theaterId) {
         List<Show> shows = showService.getShowsByTheaterId(theaterId);
         return new ResponseEntity<>(shows, HttpStatus.OK);
     }
 
-    @GetMapping("/{showId}/seats")
+    @GetMapping("/getShowSeats/{showId}")
     public ResponseEntity<?> getShowSeats(@PathVariable UUID showId) {
         try {
             List<SeatResponseDto> seats = showService.getShowSeats(showId);

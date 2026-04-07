@@ -21,7 +21,7 @@ public class HallController {
     @Autowired
     HallService hallService;
 
-    @PostMapping
+    @PostMapping("/saveHall")
     public ResponseEntity<?>  saveHall(@RequestBody HallRequestDto hallRequestDto)
     {
         try{

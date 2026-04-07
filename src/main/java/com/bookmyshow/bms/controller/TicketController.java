@@ -24,7 +24,7 @@ public class TicketController {
     @Autowired
     TicketService ticketService;
 
-    @PostMapping
+    @PostMapping("/bookTicket")
     public ResponseEntity<?> bookTicket(@RequestBody TicketRequestDto request) {
         try {
             Ticket ticket = ticketService.bookTicket(request);
@@ -34,7 +34,7 @@ public class TicketController {
         }
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/getTicketsByUser/{userId}")
     public ResponseEntity<List<Ticket>> getTicketsByUser(@PathVariable UUID userId) {
         return new ResponseEntity<>(ticketService.getTicketsByUserId(userId), HttpStatus.OK);
     }
