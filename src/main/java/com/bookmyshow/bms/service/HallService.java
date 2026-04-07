@@ -31,7 +31,10 @@ public class HallService {
 
         if (!theateroptional.isPresent()) {
             throw new UserIsNotOwnerException("The theater not found");
-
+        }
+        
+        if (!theateroptional.get().getOwner().getId().equals(hallRequestDto.getOwnerId())) {
+            throw new UserIsNotOwnerException("You are not the owner of this theater! Only the theater owner can register a hall.");
         }
         if (hallRequestDto.getHallcapacity() != hallRequestDto.getHallrows() * hallRequestDto.getSeatsInEachRow()) {
             throw new UserIsNotOwnerException("the rows and seats are not equal to the capacity of the hall");
