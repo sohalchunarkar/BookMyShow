@@ -33,13 +33,13 @@ public class ShowService {
 
     @Autowired
     ShowRepository showRepository;
-    
+
     @Autowired
     HallRepository hallRepository;
-    
+
     @Autowired
     MovieRepository movieRepository;
-    
+
     @Autowired
     UserRepository userRepository;
 
@@ -47,7 +47,7 @@ public class ShowService {
     TicketRepository ticketRepository;
 
     public Show addShow(ShowRequestDto request) {
-        
+
         // 1. Fetch Related Entities
         Optional<User> ownerOpt = userRepository.findById(request.getOwnerId());
         if (ownerOpt.isEmpty()) {
@@ -77,11 +77,11 @@ public class ShowService {
 
         // 3. Time Overlap Validation
         List<Show> existingShows = showRepository.findByHallAndShowDate(hall, request.getShowDate());
-        
+
         for (Show existingShow : existingShows) {
-            boolean isOverlapping = (request.getStartTime().isBefore(existingShow.getEndTime())) && 
-                                    (calculatedEndTime.isAfter(existingShow.getStartTime()));
-            
+            boolean isOverlapping = (request.getStartTime().isBefore(existingShow.getEndTime())) &&
+                    (calculatedEndTime.isAfter(existingShow.getStartTime()));
+
             if (isOverlapping) {
                 throw new ShowTimingOverlapException("This hall is already booked during this time frame!");
             }
@@ -122,7 +122,8 @@ public class ShowService {
             }
         }
 
-        // Loop through all physical seats and construct UI responses matching their real-time state
+        // Loop through all physical seats and construct UI responses matching their
+        // real-time state
         List<SeatResponseDto> response = new ArrayList<>();
         for (Seat seat : allSeatsInHall) {
             boolean isBooked = bookedSeatIds.contains(seat.getId());
