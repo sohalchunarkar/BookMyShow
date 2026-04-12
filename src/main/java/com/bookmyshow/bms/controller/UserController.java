@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/users")
@@ -31,11 +32,11 @@ public class UserController {
 
         try {
             UserResponseDto user = userService.registerUser(userRequestDto);
-            
+
             return ResponseEntity.status(HttpStatus.CREATED).body(user);
         } catch (Exception e) {
-            Map<String ,String> response = new HashMap<>();
-            response.put("message" , e.getMessage());
+            Map<String, String> response = new HashMap<>();
+            response.put("message", e.getMessage());
             // return new ResponseEntity(response , HttpStatus.INTERNAL_SERVER_ERROR);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
@@ -43,9 +44,21 @@ public class UserController {
     }
 
     @GetMapping("/getUserById/{id}")
-    public User getUserbyId(@PathVariable UUID id)
-    {
+    public User getUserbyId(@PathVariable UUID id) {
         return userService.getUserbyidUser(id);
+    }
+
+    @GetMapping("/getUserByEmail")
+    public ResponseEntity<?> getUserByEmail(@RequestParam String email) {
+
+        try {
+            User user = userService.getUserbyEmail(email);
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 
 }

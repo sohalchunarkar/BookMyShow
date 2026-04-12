@@ -48,14 +48,21 @@ public class UserService {
 
     }
 
-    public User getUserbyidUser(UUID id)
-    {
-            Optional<User> u = userRepository.findById(id);
-            if(u.isEmpty()){
-                throw new UserNotFoundException("The user Not found");
-            }
+    public User getUserbyidUser(UUID id) {
+        Optional<User> u = userRepository.findById(id);
+        if (u.isEmpty()) {
+            throw new UserNotFoundException("The user Not found");
+        }
 
-            return u.get();
+        return u.get();
+    }
+
+    public User getUserbyEmail(String emailId) {
+        Optional<User> u = userRepository.findByEmail(emailId);
+        if (u.isEmpty()) {
+            throw new UserNotFoundException("The user Not found");
+        }
+        return u.get();
     }
 
 }
